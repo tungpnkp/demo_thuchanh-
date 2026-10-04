@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 6.3 - Thực hành Ajax API</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+        button { padding: 8px 12px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #3498db; color: #fff; }
+        input, textarea { width: 100%; padding: 8px; margin: 4px 0; box-sizing: border-box; }
+        .loading { color: #e67e22; }
+        .loi { color: #e74c3c; }
+        .thanh-cong { color: #27ae60; }
+        .bai-viet { border-left: 4px solid #3498db; padding: 4px 12px; margin: 8px 0; }
+        section { margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <h1>Thực hành Ajax với jQuery</h1>
+    <p>API miễn phí dùng để thử nghiệm: <code>https://jsonplaceholder.typicode.com</code></p>
+
+    <!-- ===== PHẦN 1: GET danh sách ===== -->
+    <section>
+        <h2>1. Lấy danh sách người dùng (GET)</h2>
+        <button id="btnTaiUsers">Tải danh sách</button>
+        <p id="trangThaiUsers"></p>
+        <table id="bangUsers" hidden>
+            <thead>
+                <tr><th>ID</th><th>Họ tên</th><th>Email</th><th>Thành phố</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <!-- ===== PHẦN 2: GET có tham số ===== -->
+    <section>
+        <h2>2. Bài viết của người dùng (GET có tham số)</h2>
+        <p id="trangThaiPosts">Bấm "Xem bài viết" ở bảng phía trên.</p>
+        <div id="dsBaiViet"></div>
+    </section>
+
+    <!-- ===== PHẦN 3: POST gửi dữ liệu ===== -->
+    <section>
+        <h2>3. Tạo bài viết mới (POST)</h2>
+        <form id="formBaiViet">
+            <input type="text" id="tieuDe" placeholder="Tiêu đề" required>
+            <textarea id="noiDung" rows="3" placeholder="Nội dung" required></textarea>
+            <button type="submit">Gửi bài viết</button>
+        </form>
+        <p id="trangThaiPost"></p>
+        <pre id="ketQuaPost"></pre>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        var API = 'https://jsonplaceholder.typicode.com';
+
+        $(function () {
+
+            // ===== 1. GET: dùng $.ajax đầy đủ =====
+            $('#btnTaiUsers').click(function () {
+                $('#trangThaiUsers').attr('class', 'loading').text('Đang tải...');
+
+                $.ajax({
+                    url: API + '/users',
+                    method: 'GET',
+                    dataType: 'json',               // dữ liệu trả về là JSON
+                    success: function (users) {     // chạy khi gọi API thành công
+                        var $tbody = $('#bangUsers tbody').empty();
+
+                        // Duyệt mảng dữ liệu, mỗi phần tử tạo 1 dòng <tr>
+                        $.each(users, function (i, user) {
+                            var $tr = $('<tr></tr>');
+                            $tr.append($('<td></td>').text(user.id));
+                            $tr.append($('<td></td>').text(user.name));
+                            $tr.append($('<td></td>').text(user.email));
+                            $tr.append($('<td></td>').text(user.address.city));
+                            $tr.append('<td><button class="btn-xem" data-id="' + user.id + '">Xem bài viết</button></td>');
+                            $tbody.append($tr);
+                        });
+
+                        $('#bangUsers').removeAttr('hidden');
+                        $('#trangThaiUsers').attr('class', 'thanh-cong')
+                            .text('Đã tải ' + users.length + ' người dùng.');
+                    },
+                    error: function (xhr) {         // chạy khi gọi API thất bại
+                        $('#trangThaiUsers').attr('class', 'loi')
+                            .text('Lỗi khi tải dữ liệu! Mã lỗi: ' + xhr.status);
+                    }
+                });
+            });
+
+            // ===== 2. GET có tham số: dùng cách viết gọn $.getJSON =====
+            $('#bangUsers').on('click', '.btn-xem', function () {
+                var userId = $(this).data('id');
+                $('#trangThaiPosts').attr('class', 'loading').text('Đang tải bài viết...');
+                $('#dsBaiViet').empty();
+
+                // Tham số thứ 2 sẽ được ghép vào URL: /posts?userId=1
+                $.getJSON(API + '/posts', { userId: userId })
+                    .done(function (posts) {
+                        $('#trangThaiPosts').attr('class', 'thanh-cong')
+                            .text('Người dùng #' + userId + ' có ' + posts.length + ' bài viết:');
+                        $.each(posts, function (i, post) {
+                            var $div = $('<div class="bai-viet"></div>');
+                            $div.append($('<h4></h4>').text(post.title));
+                            $div.append($('<p></p>').text(post.body));
+                            $('#dsBaiViet').append($div);
+                        });
+                    })
+                    .fail(function () {
+                        $('#trangThaiPosts').attr('class', 'loi').text('Không tải được bài viết!');
+                    });
+            });
+
+            // ===== 3. POST: gửi dữ liệu từ form lên server =====
+            $('#formBaiViet').submit(function (e) {
+                e.preventDefault();   // chặn form tải lại trang
+
+                var duLieu = {
+                    title: $('#tieuDe').val(),
+                    body: $('#noiDung').val(),
+                    userId: 1
+                };
+
+                $('#trangThaiPost').attr('class', 'loading').text('Đang gửi...');
+
+                $.ajax({
+                    url: API + '/posts',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(duLieu),   // chuyển object -> chuỗi JSON
+                    success: function (ketQua) {
+                        // Server trả về bài viết vừa tạo kèm id mới
+                        $('#trangThaiPost').attr('class', 'thanh-cong')
+                            .text('Tạo thành công! ID mới: ' + ketQua.id);
+                        $('#ketQuaPost').text(JSON.stringify(ketQua, null, 2));
+                        $('#formBaiViet')[0].reset();
+                    },
+                    error: function () {
+                        $('#trangThaiPost').attr('class', 'loi').text('Gửi thất bại!');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
