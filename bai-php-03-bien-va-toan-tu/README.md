@@ -45,7 +45,7 @@ TỔNG      : 2.664.750 đ
 Xem file [`index.php`](index.php).
 
 ## Cách chạy trên macOS
-> Chưa cài PHP? Xem hướng dẫn chi tiết: [HUONG-DAN-CHAY-PHP-MACOS.md](../HUONG-DAN-CHAY-PHP-MACOS.md)
+> Chưa cài PHP? Xem hướng dẫn cho [macOS](../HUONG-DAN-CHAY-PHP-MACOS.md) hoặc [Windows](../HUONG-DAN-CAI-PHP-MYSQL-WINDOWS.md)
 
 1. Mở **Terminal** (nhấn `Cmd + Space`, gõ `Terminal`, Enter).
 2. Di chuyển vào thư mục bài (gõ `cd ` rồi kéo thả thư mục vào cửa sổ Terminal):

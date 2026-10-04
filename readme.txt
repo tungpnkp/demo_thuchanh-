@@ -18,3 +18,4 @@ Danh sách bài thực hành:
   Chạy bài 7.x: vào thư mục bài, gõ "php index.php" (kết quả in ra Terminal)
   Chạy bài php-01 đến php-04: vào thư mục bài, gõ "php -S localhost:8000" rồi mở http://localhost:8000
   Hướng dẫn cài và chạy PHP trên macOS: xem file HUONG-DAN-CHAY-PHP-MACOS.md
+  Hướng dẫn cài PHP + MySQL trên Windows: xem file HUONG-DAN-CAI-PHP-MYSQL-WINDOWS.md
