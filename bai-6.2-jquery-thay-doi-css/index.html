@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 6.2 - jQuery thay đổi CSS</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px;
+               transition: background 0.3s, color 0.3s; }
+        button { padding: 8px 12px; margin: 4px 2px; cursor: pointer; }
+        #hop { padding: 20px; margin: 20px 0; border: 2px solid #333; font-size: 16px;
+               background: #f1f1f1; }
+
+        /* Các class sẽ được thêm/bớt bằng jQuery */
+        .noi-bat { border-color: #e67e22 !important; box-shadow: 0 0 10px #e67e22; font-weight: bold; }
+        .giao-dien-toi { background: #222; color: #eee; }
+    </style>
+</head>
+<body>
+    <h1>Thay đổi CSS bằng jQuery</h1>
+
+    <div id="hop">
+        Đây là hộp nội dung mẫu. Hãy bấm các nút bên dưới để thay đổi giao diện của hộp này.
+    </div>
+
+    <h3>1. Dùng .css() đổi 1 thuộc tính</h3>
+    <button class="btn-mau" data-mau="#e74c3c">Nền đỏ</button>
+    <button class="btn-mau" data-mau="#2ecc71">Nền xanh lá</button>
+    <button class="btn-mau" data-mau="#3498db">Nền xanh dương</button>
+    <label>Tự chọn màu: <input type="color" id="chonMau" value="#f1f1f1"></label>
+
+    <h3>2. Dùng .css() đọc giá trị và tăng/giảm cỡ chữ</h3>
+    <button id="btnTangChu">A+ Tăng chữ</button>
+    <button id="btnGiamChu">A- Giảm chữ</button>
+    <span>Cỡ chữ hiện tại: <b id="coChu">16px</b></span>
+
+    <h3>3. Dùng .css() đổi nhiều thuộc tính cùng lúc</h3>
+    <button id="btnBoGoc">Bo góc + chữ trắng + căn giữa</button>
+    <button id="btnMacDinh">Về mặc định</button>
+
+    <h3>4. Dùng addClass / removeClass / toggleClass</h3>
+    <button id="btnThemClass">addClass("noi-bat")</button>
+    <button id="btnBoClass">removeClass("noi-bat")</button>
+    <button id="btnCheDoToi">toggleClass: Bật/tắt giao diện tối</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function () {
+
+            // 1. .css('thuộc tính', 'giá trị') : đổi 1 thuộc tính CSS
+            $('.btn-mau').click(function () {
+                var mau = $(this).data('mau');     // đọc thuộc tính data-mau của nút
+                $('#hop').css('background-color', mau);
+            });
+
+            // Sự kiện 'input' chạy liên tục khi kéo chọn màu
+            $('#chonMau').on('input', function () {
+                $('#hop').css('background-color', $(this).val());
+            });
+
+            // 2. .css('thuộc tính') (không có giá trị) : ĐỌC giá trị CSS hiện tại
+            function doiCoChu(buoc) {
+                var coHienTai = parseInt($('#hop').css('font-size')); // "16px" -> 16
+                var coMoi = coHienTai + buoc;
+                if (coMoi < 10 || coMoi > 40) return;                 // giới hạn 10px - 40px
+                $('#hop').css('font-size', coMoi + 'px');
+                $('#coChu').text(coMoi + 'px');
+            }
+            $('#btnTangChu').click(function () { doiCoChu(2); });
+            $('#btnGiamChu').click(function () { doiCoChu(-2); });
+
+            // 3. .css({ ... }) : truyền object để đổi NHIỀU thuộc tính cùng lúc
+            $('#btnBoGoc').click(function () {
+                $('#hop').css({
+                    'border-radius': '20px',
+                    'color': 'white',
+                    'text-align': 'center',
+                    'background-color': '#8e44ad'
+                });
+            });
+
+            // Gán giá trị rỗng '' để bỏ style đã đặt bằng jQuery -> quay về CSS gốc
+            $('#btnMacDinh').click(function () {
+                $('#hop').css({
+                    'border-radius': '', 'color': '', 'text-align': '',
+                    'background-color': '', 'font-size': ''
+                });
+                $('#coChu').text($('#hop').css('font-size'));
+                $('#chonMau').val('#f1f1f1');
+            });
+
+            // 4. Làm việc với class (cách được khuyên dùng khi đổi nhiều style)
+            $('#btnThemClass').click(function () {
+                $('#hop').addClass('noi-bat');
+            });
+            $('#btnBoClass').click(function () {
+                $('#hop').removeClass('noi-bat');
+            });
+            $('#btnCheDoToi').click(function () {
+                $('body').toggleClass('giao-dien-toi');   // có thì bỏ, chưa có thì thêm
+            });
+        });
+    </script>
+</body>
+</html>
