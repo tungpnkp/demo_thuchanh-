@@ -9,4 +9,7 @@ Danh sách bài thực hành:
 - bai-6.3-jquery-ajax-api      : Thực hành với Ajax API (mở index.html, cần có mạng)
 - bai-php-01-co-ban            : PHP nhập môn - biến, echo, if/else, mảng, vòng lặp, hàm
 - bai-php-02-xu-ly-form        : PHP nhập môn - xử lý form (máy tính đơn giản)
+- bai-php-03-bien-va-toan-tu   : PHP starter - đề bài + bài mẫu: biến, hằng, toán tử, chuỗi (hóa đơn)
+- bai-php-04-dieu-kien-va-vong-lap : PHP starter - đề bài + bài mẫu: if/else, switch, for, while
   Chạy bài PHP: vào thư mục bài, gõ "php -S localhost:8000" rồi mở http://localhost:8000
+  Hướng dẫn cài và chạy PHP trên macOS: xem file HUONG-DAN-CHAY-PHP-MACOS.md
