@@ -18,4 +18,4 @@ cd đường-dẫn-tới/bai-7.4-php-chia-function
 php index.php
 ```
 Kết quả được `echo` thẳng ra Terminal (không cần trình duyệt, không cần `php -S`).
-Chưa cài PHP trên Mac? Xem [HUONG-DAN-CHAY-PHP-MACOS.md](../HUONG-DAN-CHAY-PHP-MACOS.md).
+Chưa cài PHP? Xem hướng dẫn cho [macOS](../HUONG-DAN-CHAY-PHP-MACOS.md) hoặc [Windows](../HUONG-DAN-CAI-PHP-MYSQL-WINDOWS.md).
