@@ -12,5 +12,10 @@ Danh sách bài thực hành:
 - bai-php-02-xu-ly-form        : PHP nhập môn - xử lý form (máy tính đơn giản)
 - bai-php-03-bien-va-toan-tu   : PHP starter - đề bài + bài mẫu: biến, hằng, toán tử, chuỗi (hóa đơn)
 - bai-php-04-dieu-kien-va-vong-lap : PHP starter - đề bài + bài mẫu: if/else, switch, for, while
-  Chạy bài PHP: vào thư mục bài, gõ "php -S localhost:8000" rồi mở http://localhost:8000
+- bai-7.1-php-tinh-tien-don-hang : PHP terminal - biến, phép tính (tính tiền đơn hàng)
+- bai-7.2-php-xep-loai-hoc-vien  : PHP terminal - if/elseif/else (xếp loại học viên)
+- bai-7.3-php-danh-sach-san-pham : PHP terminal - mảng, foreach, điều kiện
+- bai-7.4-php-chia-function      : PHP terminal - chia chương trình thành function
+  Chạy bài 7.x: vào thư mục bài, gõ "php index.php" (kết quả in ra Terminal)
+  Chạy bài php-01 đến php-04: vào thư mục bài, gõ "php -S localhost:8000" rồi mở http://localhost:8000
   Hướng dẫn cài và chạy PHP trên macOS: xem file HUONG-DAN-CHAY-PHP-MACOS.md
