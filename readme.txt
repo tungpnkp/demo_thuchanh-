@@ -7,6 +7,7 @@ Danh sách bài thực hành:
 - bai-6.1-jquery-them-bot-html : Áp dụng jQuery để thêm/bớt thông tin HTML (mở index.html)
 - bai-6.2-jquery-thay-doi-css  : Áp dụng jQuery để thay đổi CSS (mở index.html)
 - bai-6.3-jquery-ajax-api      : Thực hành với Ajax API (mở index.html, cần có mạng)
+- bai-6.4-jquery-random-hoc-sinh : Dùng jQuery chọn ngẫu nhiên 1 học sinh trong danh sách lớp (mở index.html)
 - bai-php-01-co-ban            : PHP nhập môn - biến, echo, if/else, mảng, vòng lặp, hàm
 - bai-php-02-xu-ly-form        : PHP nhập môn - xử lý form (máy tính đơn giản)
 - bai-php-03-bien-va-toan-tu   : PHP starter - đề bài + bài mẫu: biến, hằng, toán tử, chuỗi (hóa đơn)
