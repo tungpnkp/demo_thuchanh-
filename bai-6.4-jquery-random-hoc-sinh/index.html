@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 6.4 - jQuery random học sinh</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
+        .ket-qua { text-align: center; padding: 24px; margin: 16px 0; border: 2px dashed #3498db;
+                   border-radius: 8px; font-size: 28px; font-weight: bold; min-height: 34px; }
+        .ma-so { display: block; font-size: 16px; font-weight: normal; color: #777; margin-top: 6px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #3498db;
+                 color: #fff; border: none; border-radius: 4px; }
+        button:disabled { background: #aaa; cursor: wait; }
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        th, td { padding: 6px 8px; border-bottom: 1px solid #ddd; text-align: left; }
+        tr.duoc-chon { background: #f1c40f; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Gọi tên ngẫu nhiên</h1>
+
+    <div class="ket-qua" id="ketQua">Bấm nút để chọn 1 học sinh</div>
+
+    <button id="btnRandom">Chọn ngẫu nhiên</button>
+
+    <table>
+        <thead>
+            <tr><th>STT</th><th>Mã SV</th><th>Họ và tên</th></tr>
+        </thead>
+        <tbody id="bangDanhSach"></tbody>
+    </table>
+
+    <!-- Nhúng thư viện jQuery từ CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        // Danh sách lớp: mỗi học sinh là 1 object gồm mã và tên
+        var danhSach = [
+            { ma: '671451',  ten: 'Vũ Minh Hiếu' },
+            { ma: '671748',  ten: 'Dương Đức Nhật' },
+            { ma: '687738',  ten: 'Đỗ Hoàng Nghĩa' },
+            { ma: '681315',  ten: 'Nguyễn Huy Phong' },
+            { ma: '682294',  ten: 'Tạ Phương Thảo' },
+            { ma: '687828',  ten: 'Lâm Quang Tình' },
+            { ma: '687831',  ten: 'Bùi Thị Thu Trang' },
+            { ma: '6650634', ten: 'Đinh Hùng Trường' },
+            { ma: '6652151', ten: 'Lương Văn Minh' },
+            { ma: '671410',  ten: 'Vũ Thị Hậu' },
+            { ma: '671189',  ten: 'Nguyễn Lan Anh' },
+            { ma: '671318',  ten: 'Nguyễn Tiến Dũng' },
+            { ma: '671562',  ten: 'Nguyễn Đăng Vinh Khải' },
+            { ma: '671671',  ten: 'Phạm Lê Hồng Minh' },
+            { ma: '683796',  ten: 'Cao Văn Tuấn' },
+            { ma: '683596',  ten: 'Trần Quốc Dũng' },
+            { ma: '681933',  ten: 'Đặng Tuấn Dư' },
+            { ma: '688724',  ten: 'Nguyễn Hữu Tuấn' }
+        ];
+
+        // $(function () { ... }) : chạy code khi trang đã tải xong
+        $(function () {
+
+            // 1. Hiển thị danh sách lớp ra bảng bằng $.each() và .append()
+            $.each(danhSach, function (i, hs) {
+                $('#bangDanhSach').append(
+                    '<tr><td>' + (i + 1) + '</td><td>' + hs.ma + '</td><td>' + hs.ten + '</td></tr>'
+                );
+            });
+
+            // Lấy 1 vị trí ngẫu nhiên từ 0 đến (số học sinh - 1)
+            function viTriNgauNhien() {
+                return Math.floor(Math.random() * danhSach.length);
+            }
+
+            // Hiện tên học sinh ở vị trí i và tô màu dòng tương ứng trong bảng
+            function hienThi(i) {
+                $('#ketQua').html(danhSach[i].ten + '<span class="ma-so">Mã SV: ' + danhSach[i].ma + '</span>');
+                $('#bangDanhSach tr').removeClass('duoc-chon');
+                $('#bangDanhSach tr').eq(i).addClass('duoc-chon');
+            }
+
+            // 2. Bấm nút: đổi tên liên tục khoảng 2 giây rồi dừng ở 1 người
+            $('#btnRandom').on('click', function () {
+                var nut = $(this);
+                nut.prop('disabled', true);
+
+                var demNguoc = setInterval(function () {
+                    hienThi(viTriNgauNhien());
+                }, 80);
+
+                setTimeout(function () {
+                    clearInterval(demNguoc);
+                    hienThi(viTriNgauNhien());
+                    $('#ketQua').hide().fadeIn(400);
+                    nut.prop('disabled', false);
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
