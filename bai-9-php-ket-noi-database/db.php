@@ -10,7 +10,6 @@
 // define("DB_PORT", 3306);          // cổng mặc định của MySQL
 // define("DB_NAME", "bai9_quan_ly_sinh_vien");
 // define("DB_USER", "root");
-// define("DB_PASS", "DOI_MAT_KHAU");            // <-- ĐIỀN MẬT KHẨU MySQL CỦA BẠN VÀO ĐÂY (XAMPP mặc định để trống)
 
 function ketNoiDatabase()
 {

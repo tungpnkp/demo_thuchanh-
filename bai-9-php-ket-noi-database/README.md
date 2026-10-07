@@ -32,7 +32,7 @@ Chọn 1 trong 2 cách:
   ```
   Nhập mật khẩu MySQL khi được hỏi. Nếu root không có mật khẩu (XAMPP) thì bỏ `-p`.
 
-### Bước 3. Điền mật khẩu vào `config.php`
+### Bước 3. Tạo `config.php` từ `config.example.php` (`cp config.example.php config.php`) rồi điền mật khẩu
 ```php
 define("DB_PASS", "");   // <-- điền mật khẩu MySQL của bạn vào giữa 2 dấu ""
 ```
