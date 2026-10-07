@@ -10,6 +10,7 @@ $phepTinh = "+";
 
 // Chỉ xử lý khi người dùng bấm nút gửi form (phương thức POST)
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    var_dump(json_encode($_POST));
     // $_POST["name"] : lấy dữ liệu từ input có name tương ứng
     $soA = trim($_POST["so_a"] ?? "");
     $soB = trim($_POST["so_b"] ?? "");
@@ -57,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- method="post": gửi dữ liệu ẩn, action="": gửi về chính trang này -->
     <form method="post" action="">
         <label>Số thứ nhất:
-            <input type="text" name="so_a" value="<?= htmlspecialchars($soA) ?>">
+            <input type="text" name="so_a1" value="<?= htmlspecialchars($soA) ?>">
         </label>
 
         <label>Phép tính:

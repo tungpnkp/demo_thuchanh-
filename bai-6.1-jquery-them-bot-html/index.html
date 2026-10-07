@@ -13,15 +13,17 @@
              padding: 8px; border-bottom: 1px solid #ddd; }
         .btn-xoa { background: #e74c3c; color: #fff; border: none; }
         .thong-bao { color: #e74c3c; min-height: 20px; }
+        .btn-ThemCuoi { background: #2ecc71; color: #fff; border: none; }
     </style>
 </head>
 <body>
-    <h1>Danh sách sinh viên</h1>
+    <h1 style="color: red;">Danh sách sinh viên</h1>
+
 
     <input type="text" id="txtTen" placeholder="Nhập tên sinh viên...">
     <p class="thong-bao" id="thongBao"></p>
 
-    <button id="btnThemCuoi">Thêm vào cuối</button>
+    <button id="btnThemCuoi">Thêm vào cuối 00000</button>
     <button id="btnThemDau">Thêm vào đầu</button>
     <button id="btnXoaCuoi">Xóa người cuối</button>
     <button id="btnXoaTatCa">Xóa tất cả</button>
@@ -36,11 +38,18 @@
         // $(function () { ... }) : chạy code khi trang đã tải xong
         $(function () {
 
+            $("#btnThemCuoi, #btnThemDau").mouseenter(function () {
+                $(this).css("background-color", "green");
+            });
+            $("#btnThemCuoi, #btnThemDau").mouseleave(function () {
+                $(this).css("background-color", "red");
+            });
+
             // Tạo 1 thẻ <li> mới từ tên sinh viên
             function taoMuc(ten) {
                 var $li = $('<li></li>');                 // tạo thẻ mới
                 $li.append($('<span></span>').text(ten)); // .text() để tránh chèn mã HTML lạ
-                $li.append('<button class="btn-xoa">Xóa</button>');
+                $li.append('<button id="btnXoa" class="btn-xoa">Xóa</button>');
                 return $li;
             }
 
@@ -68,6 +77,7 @@
                     $('#danhSach').append(taoMuc(ten));
                     capNhatTongSo();
                 }
+                $(this).toggleClass("btn-xoa");
             });
 
             // 2. prepend(): thêm vào ĐẦU danh sách

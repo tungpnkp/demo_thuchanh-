@@ -69,6 +69,7 @@
                     method: 'GET',
                     dataType: 'json',               // dữ liệu trả về là JSON
                     success: function (users) {     // chạy khi gọi API thành công
+                        console.log('get thanh cong');
                         var $tbody = $('#bangUsers tbody').empty();
 
                         // Duyệt mảng dữ liệu, mỗi phần tử tạo 1 dòng <tr>
@@ -123,7 +124,7 @@
                 var duLieu = {
                     title: $('#tieuDe').val(),
                     body: $('#noiDung').val(),
-                    userId: 1
+                    userId: 2
                 };
 
                 $('#trangThaiPost').attr('class', 'loading').text('Đang gửi...');
