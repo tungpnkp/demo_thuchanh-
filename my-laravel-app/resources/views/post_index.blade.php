@@ -10,7 +10,7 @@
     <ul>
         @foreach ($posts as $post)
             <li> id: {{ $post->id }}</li>
-            <li> author: {{ $post->user_name }}</li>
+            <li> author: {{ $post->user->name }}</li>
             <li> title: {{ $post->title }}</li>
             <li> content: {{ $post->content }}</li>
             <li> created_at: {{ $post->created_at }}</li>

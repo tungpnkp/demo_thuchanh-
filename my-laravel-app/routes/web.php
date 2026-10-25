@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 
 Route::get('/post', [PostController::class, 'index'])->name('post.index');
@@ -15,3 +17,9 @@ Route::post('/post', [PostController::class, 'store'])->name('post.store');
 Route::get('/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/post/{id}', [PostController::class, 'update'])->name('post.update');
 Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+
+
+Route::get('/user', [UserController::class, 'index']);
+Route::get('/user/role', function() {
+    User::find(4)->roles()->toggle([1,2,3]);
+});

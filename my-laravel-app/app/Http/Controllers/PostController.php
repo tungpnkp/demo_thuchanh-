@@ -12,11 +12,7 @@ class PostController extends Controller
 {
     // lấy tất cả 
     public function index() {
-        $posts = Post::select('id', 'title', 'content', 'created_at', 'updated_at', 'deleted_at')
-        ->addSelect(['user_name' => User::select('name')->whereColumn('id', 'posts.user_id')])
-        ->orderBy(User::select('user_id')->whereColumn('id', 'posts.user_id'))
-        ->withTrashed()
-        ->get(); // DB::table('posts')->where('title', 'like', '%Laravel%')->get();
+        $posts = Post::with('user')->get();
         return view('post_index', ['posts' => $posts]);
     }
 
