@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
     // lấy tất cả 
     public function index() {
-        $posts = Post::all(); // DB::table('posts')->where('title', 'like', '%Laravel%')->get();
+        $posts = Post::select('id', 'title', 'content', 'created_at', 'updated_at', 'deleted_at')
+        ->addSelect(['user_name' => User::select('name')->whereColumn('id', 'posts.user_id')])
+        ->orderBy(User::select('user_id')->whereColumn('id', 'posts.user_id'))
+        ->withTrashed()
+        ->get(); // DB::table('posts')->where('title', 'like', '%Laravel%')->get();
         return view('post_index', ['posts' => $posts]);
     }
 
@@ -52,8 +57,12 @@ class PostController extends Controller
     }
 
     public function destroy($id) {
-        $post = Post::find($id);
-        $post->delete();
+        $post = Post::withTrashed()->find($id);
+        if ($post->trashed()) {
+            $post->forceDelete();
+        } else {
+            $post->delete();
+        }
         return redirect()->route('post.index');
     }
 }
