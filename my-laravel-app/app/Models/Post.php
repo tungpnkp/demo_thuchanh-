@@ -16,4 +16,14 @@ class Post extends Model
     {
         return $query->where('title', 'like', '%Laravel%');
     }
+
+    public function scopeGetUser2($query) 
+    {
+        return $query->where('user_id', 2);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class); // mặc định laravel là lấy cột tên table_id để làm khoá phụ, nhưng mình muốn lấy cột user_id để làm khoá phụ
+    }
 }
